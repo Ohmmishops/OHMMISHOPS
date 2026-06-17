@@ -61,7 +61,11 @@ border-radius:10px;
 
 </div>
 
-<script type="module">
+import {
+getAuth,
+onAuthStateChanged
+}
+from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';<script type="module">
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 
@@ -82,7 +86,21 @@ messagingSenderId: "64123880266",
 appId: "1:64123880266:web:0317d55de24fc705d137b3"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);const auth = getAuth(app);
+
+onAuthStateChanged(auth,(user)=>{
+
+if(!user){
+window.location.href="login.html";
+return;
+}
+
+if(user.email !== "fftar11@gmail.com"){
+window.location.href="index.html";
+return;
+}
+
+});
 const db = getDatabase(app);
 
 window.addProduct = function(){
