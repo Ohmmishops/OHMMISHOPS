@@ -7,7 +7,7 @@
 
 <style>
 body{
-font-family:Arial;
+font-family:Arial,sans-serif;
 background:#f5f0ff;
 padding:20px;
 }
@@ -25,6 +25,7 @@ input{
 width:100%;
 padding:10px;
 margin:10px 0;
+box-sizing:border-box;
 }
 
 button{
@@ -34,12 +35,23 @@ background:#7c4dff;
 color:white;
 border:none;
 border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+opacity:.9;
 }
 
 a{
 display:block;
 text-align:center;
 margin-top:15px;
+}
+
+#msg{
+margin-top:15px;
+text-align:center;
+font-weight:bold;
 }
 </style>
 </head>
@@ -52,7 +64,7 @@ margin-top:15px;
 
 <input type="email" id="email" placeholder="อีเมล">
 
-<input type="password" id="password" placeholder="รหัสผ่าน">
+<input type="password" id="password" placeholder="รหัสผ่าน (อย่างน้อย 6 ตัว)">
 
 <button onclick="register()">สมัครสมาชิก</button>
 
@@ -66,7 +78,7 @@ margin-top:15px;
 
 </div>
 
-<script type="module"></script>
+<script type="module">
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 
@@ -74,55 +86,55 @@ import {
 getAuth,
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword
-}
-from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
 const firebaseConfig = {
-authDomain: "ohmmishops-68928.firebaseapp.com",
-databaseURL: "https://ohmmishops-68928-default-rtdb.asia-southeast1.firebasedatabase.app",
-projectId: "ohmmishops-68928",
-storageBucket: "ohmmishops-68928.firebasestorage.app",
-messagingSenderId: "64123880266",
-appId: "1:64123880266:web:0317d55de24fc705d137b3"
-};apiKey: "AIzaSyC1aaMNIa7gfr9y6mHbIZU-OZIsq3yLSAU",
+  apiKey: "AIzaSyC1aaMNIa7gfr9y6mHbIZU-OZIsq3yLSAU",
+  authDomain: "ohmmishops-68928.firebaseapp.com",
+  databaseURL: "https://ohmmishops-68928-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "ohmmishops-68928",
+  storageBucket: "ohmmishops-68928.firebasestorage.app",
+  messagingSenderId: "64123880266",
+  appId: "1:64123880266:web:0317d55de24fc705d137b3"
+};
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-window.register = function(){
+window.register = async function(){
 
-const email=document.getElementById('email').value;
-const password=document.getElementById('password').value;
+const email = document.getElementById('email').value;
+const password = document.getElementById('password').value;
 
-createUserWithEmailAndPassword(auth,email,password)
-.then(()=>{
-document.getElementById('msg').innerHTML='สมัครสมาชิกสำเร็จ';
-})
-.catch(err=>{
-document.getElementById('msg').innerHTML=err.message;
-});
+try{
+await createUserWithEmailAndPassword(auth,email,password);
+document.getElementById('msg').innerHTML = '✅ สมัครสมาชิกสำเร็จ';
+}catch(err){
+document.getElementById('msg').innerHTML = '❌ ' + err.message;
+}
 
 }
 
-window.login=function(){
+window.login = async function(){
 
-const email=document.getElementById('email').value;
-const password=document.getElementById('password').value;
+const email = document.getElementById('email').value;
+const password = document.getElementById('password').value;
 
-signInWithEmailAndPassword(auth,email,password)
-.then(()=>{
-document.getElementById('msg').innerHTML='เข้าสู่ระบบสำเร็จ';
+try{
 
-if(email==="fftar11@gmail.com"){
+await signInWithEmailAndPassword(auth,email,password);
+
+document.getElementById('msg').innerHTML='✅ เข้าสู่ระบบสำเร็จ';
+
+if(email === "fftar11@gmail.com"){
 window.location.href="admin.html";
 }else{
 window.location.href="index.html";
 }
 
-})
-.catch(err=>{
-document.getElementById('msg').innerHTML=err.message;
-});
+}catch(err){
+document.getElementById('msg').innerHTML='❌ '+err.message;
+}
 
 }
 
