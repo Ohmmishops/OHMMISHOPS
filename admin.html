@@ -1,1 +1,126 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OHMMISHOPS Admin</title>
 
+<style>
+body{
+font-family:Arial;
+background:#f5f0ff;
+padding:20px;
+}
+
+.box{
+background:white;
+padding:20px;
+border-radius:15px;
+max-width:600px;
+margin:auto;
+box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+button{
+padding:10px;
+background:#7c4dff;
+color:white;
+border:none;
+border-radius:8px;
+width:100%;
+}
+
+.card{
+background:#eee;
+padding:10px;
+margin-top:10px;
+border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>OHMMISHOPS ADMIN</h2>
+
+<input type="text" id="name" placeholder="ชื่อสินค้า">
+
+<input type="text" id="price" placeholder="ราคา">
+
+<button onclick="addProduct()">เพิ่มสินค้า</button>
+
+<div id="products"></div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+
+import {
+getDatabase,
+ref,
+push,
+onValue
+}
+from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+
+const firebaseConfig = {
+authDomain: "ohmmishops-68928.firebaseapp.com",
+databaseURL: "https://ohmmishops-68928-default-rtdb.asia-southeast1.firebasedatabase.app",
+projectId: "ohmmishops-68928",
+storageBucket: "ohmmishops-68928.firebasestorage.app",
+messagingSenderId: "64123880266",
+appId: "1:64123880266:web:0317d55de24fc705d137b3"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+window.addProduct = function(){
+
+const name = document.getElementById('name').value;
+const price = document.getElementById('price').value;
+
+push(ref(db,"products"),{
+name:name,
+price:price
+});
+
+alert("เพิ่มสินค้าเรียบร้อย");
+
+}
+
+onValue(ref(db,"products"),(snapshot)=>{
+
+let html="";
+
+snapshot.forEach((child)=>{
+
+const data=child.val();
+
+html += `
+<div class="card">
+<b>${data.name}</b><br>
+ราคา ${data.price} บาท
+</div>
+`;
+
+});
+
+document.getElementById("products").innerHTML=html;
+
+});
+
+</script>
+
+</body>
+</html>
