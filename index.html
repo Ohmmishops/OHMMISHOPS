@@ -159,5 +159,28 @@ document.getElementById("products").innerHTML = html;
 
 </script>
 
-</body>
+<script>
+
+const slides = [
+"slide1.png",
+"slide2.png",
+"slide3.jpg"
+];
+
+let currentSlide = 0;
+
+setInterval(()=>{
+
+currentSlide++;
+
+if(currentSlide >= slides.length){
+currentSlide = 0;
+}
+
+document.getElementById("slide").src =
+slides[currentSlide];
+
+},4000);
+
+</script></body>
 </html>
