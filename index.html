@@ -3,95 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>OHMMISHOPS</title>
 
 <style>
+
 body{
+margin:0;
 font-family:Arial,sans-serif;
 background:#f5f0ff;
-margin:0;
-padding:0;
 }
 
-.logo{
-width:220px;
-display:block;
-margin:auto;
-}
-
-.banner{
-text-align:center;
-padding:20px;
-}.slider{
-max-width:1200px;
-margin:20px auto;
+.slider{
+width:100%;
+overflow:hidden;
 }
 
 .slider img{
 width:100%;
-border-radius:15px;
-box-shadow:0 4px 15px rgba(0,0,0,.15);
+display:block;
 }
 
-.menu{
+.welcome{
 text-align:center;
-margin-bottom:20px;
+padding:20px;
 }
 
-.menu a{
-text-decoration:none;
+.login-btn{
+display:inline-block;
+padding:12px 25px;
 background:#7c4dff;
 color:white;
-padding:10px 15px;
-border-radius:8px;
-margin:5px;
-display:inline-block;
+text-decoration:none;
+border-radius:10px;
+margin-top:10px;
 }
 
 .products{
-padding:15px;
+padding:20px;
+}
+
+.products h2{
+margin-bottom:15px;
 }
 
 .card{
 background:white;
 padding:15px;
+border-radius:15px;
 margin-bottom:15px;
-border-radius:12px;
 box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
 
 .price{
 color:#7c4dff;
+font-size:22px;
 font-weight:bold;
-font-size:18px;
+margin-top:10px;
+}
+
+.buy-btn{
+display:block;
+width:100%;
+padding:12px;
+margin-top:15px;
+background:#1877F2;
+color:white;
+text-align:center;
+text-decoration:none;
+border-radius:10px;
 }
 
 footer{
 text-align:center;
 padding:20px;
+color:#777;
 }
+
 </style>
 </head>
 
 <body>
 
-<header>
+<!-- สไลด์ -->
 
-<img src="file_000000004a4871fa820d19cb5d6f8996.png" class="logo">
-
-</header>
 <div class="slider">
 <img id="slide" src="slide1.png">
 </div>
-<div class="banner">
-<h2>ยินดีต้อนรับสู่ OHMMISHOPS</h2>
+
+<!-- ยินดีต้อนรับ -->
+
+<div class="welcome">
+
+<h1>ยินดีต้อนรับสู่ OHMMISHOPS</h1>
+
 <p>เลือกซื้อสินค้าได้ด้านล่าง</p>
+
+<a class="login-btn" href="login.html">
+เข้าสู่ระบบ
+</a>
+
 </div>
 
-<div class="menu">
-<a href="login.html">เข้าสู่ระบบ</a>
-
-</div>
+<!-- สินค้า -->
 
 <div class="products">
 
@@ -117,16 +131,17 @@ onValue
 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
 const firebaseConfig = {
-  apiKey: "คีย์ apiKey ของคุณ",
-  authDomain: "ohmmishops-68928.firebaseapp.com",
-  databaseURL: "https://ohmmishops-68928-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "ohmmishops-68928",
-  storageBucket: "ohmmishops-68928.firebasestorage.app",
-  messagingSenderId: "64123880266",
-  appId: "1:64123880266:web:0317d55de24fc705d137b3"
+apiKey: "คีย์ apiKey ของคุณ",
+authDomain: "ohmmishops-68928.firebaseapp.com",
+databaseURL: "https://ohmmishops-68928-default-rtdb.asia-southeast1.firebasedatabase.app",
+projectId: "ohmmishops-68928",
+storageBucket: "ohmmishops-68928.firebasestorage.app",
+messagingSenderId: "64123880266",
+appId: "1:64123880266:web:0317d55de24fc705d137b3"
 };
 
 const app = initializeApp(firebaseConfig);
+
 const db = getDatabase(app);
 
 onValue(ref(db,"products"),(snapshot)=>{
@@ -139,13 +154,20 @@ const data = child.val();
 
 html += `
 <div class="card">
-<h3>${data.name}</h3>
-<div class="price">${data.price} บาท</div>
 
-<a href="https://www.facebook.com/share/1VEJrbCzQt/" target="_blank">
-<button style="width:100%;padding:10px;margin-top:10px;background:#1877F2;color:white;border:none;border-radius:8px;">
+<h3>${data.name}</h3>
+
+<div class="price">
+${data.price} บาท
+</div>
+
+<a
+class="buy-btn"
+href="https://www.facebook.com/share/1VEJrbCzQt/"
+target="_blank">
+
 📩 ติดต่อซื้อสินค้า
-</button>
+
 </a>
 
 </div>
@@ -164,23 +186,25 @@ document.getElementById("products").innerHTML = html;
 const slides = [
 "slide1.png",
 "slide2.png",
-"slide3.jpg"
+"slide3.png"
 ];
 
-let currentSlide = 0;
+let current = 0;
 
 setInterval(()=>{
 
-currentSlide++;
+current++;
 
-if(currentSlide >= slides.length){
-currentSlide = 0;
+if(current >= slides.length){
+current = 0;
 }
 
 document.getElementById("slide").src =
-slides[currentSlide];
+slides[current];
 
 },4000);
 
-</script></body>
+</script>
+
+</body>
 </html>
