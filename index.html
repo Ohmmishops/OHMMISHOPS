@@ -14,9 +14,25 @@ font-family:Arial,sans-serif;
 background:#f5f0ff;
 }
 
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.logo{
+display:block;
+width:260px;
+max-width:90%;
+margin:20px auto;
+}
+
 .slider{
 width:100%;
 overflow:hidden;
+border-radius:20px;
+box-shadow:0 0 15px rgba(0,0,0,.15);
+margin-bottom:30px;
 }
 
 .slider img{
@@ -24,59 +40,73 @@ width:100%;
 display:block;
 }
 
-.welcome{
+h1{
 text-align:center;
-padding:20px;
+font-size:48px;
+margin-top:10px;
+}
+
+p{
+text-align:center;
+font-size:24px;
 }
 
 .login-btn{
-display:inline-block;
-padding:12px 25px;
+display:block;
+width:220px;
+margin:30px auto;
+padding:16px;
 background:#7c4dff;
 color:white;
 text-decoration:none;
-border-radius:10px;
-margin-top:10px;
-}
-
-.products{
-padding:20px;
-}
-
-.products h2{
-margin-bottom:15px;
-}
-
-.card{
-background:white;
-padding:15px;
+text-align:center;
 border-radius:15px;
-margin-bottom:15px;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
+font-size:24px;
+font-weight:bold;
 }
 
-.price{
-color:#7c4dff;
-font-size:22px;
+.products-title{
+font-size:42px;
 font-weight:bold;
-margin-top:10px;
+margin-top:50px;
+}
+
+.product-card{
+background:white;
+padding:25px;
+border-radius:20px;
+margin-top:20px;
+box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+.product-name{
+font-size:32px;
+font-weight:bold;
+}
+
+.product-price{
+font-size:30px;
+font-weight:bold;
+color:#7c4dff;
+margin:15px 0;
 }
 
 .buy-btn{
 display:block;
-width:100%;
-padding:12px;
-margin-top:15px;
-background:#1877F2;
+background:#1877f2;
 color:white;
 text-align:center;
+padding:15px;
+border-radius:12px;
 text-decoration:none;
-border-radius:10px;
+font-size:22px;
+font-weight:bold;
 }
 
 footer{
 text-align:center;
-padding:20px;
+margin:60px 0 30px;
+font-size:18px;
 color:#777;
 }
 
@@ -85,43 +115,47 @@ color:#777;
 
 <body>
 
+<div class="container">
+
+<!-- โลโก้ -->
+
+<img
+class="logo"
+src="file_000000004a4871fa820d19cb5d6f8996.png"
+alt="OHMMISHOPS"
+>
+
 <!-- สไลด์ -->
 
 <div class="slider">
-<img id="slide" src="slide1.png">
+<img id="slide"
+src="file_000000002318720b827b073681dd573e.png">
 </div>
-
-<!-- ยินดีต้อนรับ -->
-
-<div class="welcome">
 
 <h1>ยินดีต้อนรับสู่ OHMMISHOPS</h1>
 
 <p>เลือกซื้อสินค้าได้ด้านล่าง</p>
 
-<a class="login-btn" href="login.html">
+<a href="login.html" class="login-btn">
 เข้าสู่ระบบ
 </a>
 
+<div class="products-title">
+รายการสินค้า
 </div>
-
-<!-- สินค้า -->
-
-<div class="products">
-
-<h2>รายการสินค้า</h2>
 
 <div id="products"></div>
-
-</div>
 
 <footer>
 OHMMISHOPS © 2026
 </footer>
 
+</div>
+
 <script type="module">
 
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { initializeApp }
+from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 
 import {
 getDatabase,
@@ -131,7 +165,7 @@ onValue
 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
 const firebaseConfig = {
-apiKey: "คีย์ apiKey ของคุณ",
+apiKey: "AIzaSyC1aaMNIa7gfr9y6mHbIZU-OZIsq3yLSAU",
 authDomain: "ohmmishops-68928.firebaseapp.com",
 databaseURL: "https://ohmmishops-68928-default-rtdb.asia-southeast1.firebasedatabase.app",
 projectId: "ohmmishops-68928",
@@ -141,51 +175,11 @@ appId: "1:64123880266:web:0317d55de24fc705d137b3"
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getDatabase(app);
 
-onValue(ref(db,"products"),(snapshot)=>{
-
-let html = "";
-
-snapshot.forEach((child)=>{
-
-const data = child.val();
-
-html += `
-<div class="card">
-
-<h3>${data.name}</h3>
-
-<div class="price">
-${data.price} บาท
-</div>
-
-<a
-class="buy-btn"
-href="https://www.facebook.com/share/1VEJrbCzQt/"
-target="_blank">
-
-📩 ติดต่อซื้อสินค้า
-
-</a>
-
-</div>
-`;
-
-});
-
-document.getElementById("products").innerHTML = html;
-
-});
-
-</script>
-
-<script>
-
 const slides = [
-"slide1.png",
-"slide2.png",
+"file_000000002318720b827b073681dd573e.png",
+"file_00000000b8c0720bbb5251a2ce12afc2.png",
 "slide3.png"
 ];
 
@@ -203,6 +197,42 @@ document.getElementById("slide").src =
 slides[current];
 
 },4000);
+
+onValue(ref(db,"products"),(snapshot)=>{
+
+let html = "";
+
+snapshot.forEach((child)=>{
+
+const data = child.val();
+
+html += `
+<div class="product-card">
+
+<div class="product-name">
+${data.name}
+</div>
+
+<div class="product-price">
+${data.price} บาท
+</div>
+
+<a class="buy-btn"
+href="https://m.me/"
+target="_blank">
+
+📩 ติดต่อซื้อสินค้า
+
+</a>
+
+</div>
+`;
+
+});
+
+document.getElementById("products").innerHTML = html;
+
+});
 
 </script>
 
