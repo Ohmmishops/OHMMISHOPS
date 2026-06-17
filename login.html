@@ -1,1 +1,132 @@
-<h1>Login</h1>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OHMMISHOPS Login</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f5f0ff;
+padding:20px;
+}
+
+.box{
+background:white;
+padding:20px;
+border-radius:15px;
+max-width:400px;
+margin:auto;
+box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+button{
+width:100%;
+padding:10px;
+background:#7c4dff;
+color:white;
+border:none;
+border-radius:8px;
+}
+
+a{
+display:block;
+text-align:center;
+margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>OHMMISHOPS</h2>
+
+<input type="email" id="email" placeholder="อีเมล">
+
+<input type="password" id="password" placeholder="รหัสผ่าน">
+
+<button onclick="register()">สมัครสมาชิก</button>
+
+<br><br>
+
+<button onclick="login()">เข้าสู่ระบบ</button>
+
+<p id="msg"></p>
+
+<a href="index.html">กลับหน้าแรก</a>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+
+import {
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword
+}
+from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+
+const firebaseConfig = {
+authDomain: "ohmmishops-68928.firebaseapp.com",
+databaseURL: "https://ohmmishops-68928-default-rtdb.asia-southeast1.firebasedatabase.app",
+projectId: "ohmmishops-68928",
+storageBucket: "ohmmishops-68928.firebasestorage.app",
+messagingSenderId: "64123880266",
+appId: "1:64123880266:web:0317d55de24fc705d137b3"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.register = function(){
+
+const email=document.getElementById('email').value;
+const password=document.getElementById('password').value;
+
+createUserWithEmailAndPassword(auth,email,password)
+.then(()=>{
+document.getElementById('msg').innerHTML='สมัครสมาชิกสำเร็จ';
+})
+.catch(err=>{
+document.getElementById('msg').innerHTML=err.message;
+});
+
+}
+
+window.login=function(){
+
+const email=document.getElementById('email').value;
+const password=document.getElementById('password').value;
+
+signInWithEmailAndPassword(auth,email,password)
+.then(()=>{
+document.getElementById('msg').innerHTML='เข้าสู่ระบบสำเร็จ';
+
+if(email==="fftar11@gmail.com"){
+window.location.href="admin.html";
+}else{
+window.location.href="index.html";
+}
+
+})
+.catch(err=>{
+document.getElementById('msg').innerHTML=err.message;
+});
+
+}
+
+</script>
+
+</body>
+</html>
