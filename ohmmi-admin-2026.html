@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="th">
+<!DOCTYPE html><html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OHMMISHOPS Admin</title>
-
-<style>
+<title>OHMMISHOPS Admin</title><style>
 body{
-font-family:Arial;
+font-family:Arial,sans-serif;
 background:#f5f0ff;
 padding:20px;
 }
@@ -23,49 +20,36 @@ box-shadow:0 0 10px rgba(0,0,0,.1);
 
 input{
 width:100%;
-padding:10px;
+padding:12px;
 margin:10px 0;
+box-sizing:border-box;
 }
 
 button{
-padding:10px;
+width:100%;
+padding:12px;
 background:#7c4dff;
 color:white;
 border:none;
 border-radius:8px;
-width:100%;
+cursor:pointer;
+margin-top:5px;
+}
+
+.delete-btn{
+background:#e53935;
+margin-top:10px;
 }
 
 .card{
 background:#eee;
-padding:10px;
+padding:12px;
 margin-top:10px;
 border-radius:10px;
 }
-</style>
-</head>
+</style></head><body><div class="box"><h2>OHMMISHOPS ADMIN</h2><input type="text" id="name" placeholder="ชื่อสินค้า"><input type="text" id="price" placeholder="ราคา"><button onclick="addProduct()">เพิ่มสินค้า</button>
 
-<body>
-
-<div class="box">
-
-<h2>OHMMISHOPS ADMIN</h2>
-
-<input type="text" id="name" placeholder="ชื่อสินค้า">
-
-<input type="text" id="price" placeholder="ราคา">
-
-<button onclick="addProduct()">เพิ่มสินค้า</button>
-
-<div id="products"></div>
-
-</div>
-
-import {
-getAuth,
-onAuthStateChanged
-}
-from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';<script type="module">
+<hr><div id="products"></div></div><script type="module">
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 
@@ -73,25 +57,29 @@ import {
 getDatabase,
 ref,
 push,
-onValue
+onValue,
+remove
 }
 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
-const firebaseConfig = {
-authDomain: "ohmmishops-68928.firebaseapp.com",
-databaseURL: "https://ohmmishops-68928-default-rtdb.asia-southeast1.firebasedatabase.app",
-projectId: "ohmmishops-68928",
-storageBucket: "ohmmishops-68928.firebasestorage.app",
-messagingSenderId: "64123880266",
-appId: "1:64123880266:web:0317d55de24fc705d137b3"
-};
-
-const app = initializeApp(firebaseConfig);const auth = getAuth(app);import {
+import {
 getAuth,
 onAuthStateChanged
 }
 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
+const firebaseConfig = {
+  apiKey: "AIzaSyC1aaMNIa7gfr9y6mHbIZU-OZIsq3yLSAU",
+  authDomain: "ohmmishops-68928.firebaseapp.com",
+  databaseURL: "https://ohmmishops-68928-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "ohmmishops-68928",
+  storageBucket: "ohmmishops-68928.firebasestorage.app",
+  messagingSenderId: "64123880266",
+  appId: "1:64123880266:web:0317d55de24fc705d137b3"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 const auth = getAuth(app);
 
 onAuthStateChanged(auth,(user)=>{
@@ -108,34 +96,34 @@ return;
 
 });
 
-onAuthStateChanged(auth,(user)=>{
-
-if(!user){
-window.location.href="login.html";
-return;
-}
-
-if(user.email !== "fftar11@gmail.com"){
-window.location.href="index.html";
-return;
-}
-
-});
-const db = getDatabase(app);
-
 window.addProduct = function(){
 
-const name = document.getElementById('name').value;
-const price = document.getElementById('price').value;
+const name = document.getElementById("name").value;
+const price = document.getElementById("price").value;
+
+if(!name || !price){
+alert("กรอกข้อมูลให้ครบ");
+return;
+}
 
 push(ref(db,"products"),{
 name:name,
 price:price
 });
 
-alert("เพิ่มสินค้าเรียบร้อย");
+document.getElementById("name").value="";
+document.getElementById("price").value="";
 
+alert("เพิ่มสินค้าเรียบร้อย");
+};
+
+window.deleteProduct = function(id){
+
+if(confirm("ลบสินค้านี้?")){
+remove(ref(db,"products/"+id));
 }
+
+};
 
 onValue(ref(db,"products"),(snapshot)=>{
 
@@ -143,22 +131,27 @@ let html="";
 
 snapshot.forEach((child)=>{
 
-const data=child.val();
+const data = child.val();
 
 html += `
 <div class="card">
 <b>${data.name}</b><br>
 ราคา ${data.price} บาท
+
+<button
+class="delete-btn"
+onclick="deleteProduct('${child.key}')">
+ลบสินค้า
+</button>
+
 </div>
 `;
 
 });
 
-document.getElementById("products").innerHTML=html;
+document.getElementById("products").innerHTML = html;
 
 });
 
-</script>
-
-</body>
+</script></body>
 </html>
