@@ -104,15 +104,17 @@ window.addProduct = function(){
 
 const name = document.getElementById("name").value;
 const price = document.getElementById("price").value;
+const image = document.getElementById("image").value;
 
-if(!name || !price){
+if(!name || !price || !image){
 alert("กรอกข้อมูลให้ครบ");
 return;
 }
 
 push(ref(db,"products"),{
 name:name,
-price:price
+price:price,
+image:image
 });
 
 document.getElementById("name").value="";
