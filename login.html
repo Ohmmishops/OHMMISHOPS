@@ -3,67 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>OHMMISHOPS Login</title>
 
 <style>
-body{
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 font-family:Arial,sans-serif;
-background:#f5f0ff;
+}
+
+body{
+background:linear-gradient(135deg,#efe7ff,#dccbff);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
 padding:20px;
 }
 
 .box{
 background:white;
-padding:20px;
-border-radius:15px;
-max-width:400px;
+width:100%;
+max-width:420px;
+padding:30px;
+border-radius:25px;
+box-shadow:0 10px 30px rgba(124,77,255,.25);
+text-align:center;
+}
+
+.logo{
+width:130px;
+display:block;
 margin:auto;
-box-shadow:0 0 10px rgba(0,0,0,.1);
+margin-bottom:15px;
+}
+
+h1{
+font-size:38px;
+font-weight:900;
+color:#7c4dff;
+margin-bottom:8px;
+text-shadow:0 2px 10px rgba(124,77,255,.3);
+}
+
+.subtitle{
+color:#777;
+font-size:14px;
+margin-bottom:25px;
 }
 
 input{
 width:100%;
-padding:10px;
+padding:14px;
 margin:10px 0;
-box-sizing:border-box;
+border:2px solid #e5d8ff;
+border-radius:12px;
+font-size:16px;
+outline:none;
+}
+
+input:focus{
+border-color:#7c4dff;
 }
 
 button{
 width:100%;
-padding:10px;
-background:#7c4dff;
-color:white;
+padding:14px;
 border:none;
-border-radius:8px;
+border-radius:12px;
+background:linear-gradient(
+90deg,
+#7c4dff,
+#9b6dff
+);
+color:white;
+font-size:18px;
+font-weight:bold;
 cursor:pointer;
+margin-top:10px;
+transition:.3s;
 }
 
 button:hover{
-opacity:.9;
+transform:translateY(-2px);
 }
 
-a{
+.back{
 display:block;
-text-align:center;
-margin-top:15px;
+margin-top:20px;
+text-decoration:none;
+color:#7c4dff;
+font-weight:bold;
 }
 
 #msg{
 margin-top:15px;
-text-align:center;
 font-weight:bold;
 }
-.logo{
-display:block;
-width:120px;
-margin:0 auto 15px;
+
+.badge{
+margin-top:20px;
+padding:10px;
+background:#f5f0ff;
+border-radius:12px;
+color:#7c4dff;
+font-weight:bold;
+font-size:14px;
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="box">
 <div class="box">
 
 <img
@@ -71,42 +126,62 @@ src="file_000000004a4871fa820d19cb5d6f8996.png"
 class="logo"
 alt="OHMMISHOPS">
 
-<h2>OHMMISHOPS</h2>
+<h1>OHMMISHOPS</h1>
 
-<input type="email" id="email" placeholder="อีเมล">
+<p class="subtitle">
+ร้านเติมเกม Roblox • Free Fire • MLBB
+</p>
 
-<input type="password" id="password" placeholder="รหัสผ่าน (อย่างน้อย 6 ตัว)">
+<input
+type="email"
+id="email"
+placeholder="อีเมล">
 
-<button onclick="register()">สมัครสมาชิก</button>
+<input
+type="password"
+id="password"
+placeholder="รหัสผ่าน (อย่างน้อย 6 ตัว)">
 
-<br><br>
+<button onclick="register()">
+สมัครสมาชิก
+</button>
 
-<button onclick="login()">เข้าสู่ระบบ</button>
+<button onclick="login()">
+เข้าสู่ระบบ
+</button>
 
 <p id="msg"></p>
 
-<a href="index.html">กลับหน้าแรก</a>
+<a href="index.html" class="back">
+← กลับหน้าแรก
+</a>
+
+<div class="badge">
+⚡ เติมไว • ปลอดภัย • บริการตลอด 24 ชม.
+</div>
 
 </div>
 
 <script type="module">
 
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { initializeApp }
+from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 
 import {
 getAuth,
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword
-} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+}
+from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC1aaMNIa7gfr9y6mHbIZU-OZIsq3yLSAU",
-  authDomain: "ohmmishops-68928.firebaseapp.com",
-  databaseURL: "https://ohmmishops-68928-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "ohmmishops-68928",
-  storageBucket: "ohmmishops-68928.firebasestorage.app",
-  messagingSenderId: "64123880266",
-  appId: "1:64123880266:web:0317d55de24fc705d137b3"
+apiKey: "AIzaSyC1aaMNIa7gfr9y6mHbIZU-OZIsq3yLSAU",
+authDomain: "ohmmishops-68928.firebaseapp.com",
+databaseURL: "https://ohmmishops-68928-default-rtdb.asia-southeast1.firebasedatabase.app",
+projectId: "ohmmishops-68928",
+storageBucket: "ohmmishops-68928.firebasestorage.app",
+messagingSenderId: "64123880266",
+appId: "1:64123880266:web:0317d55de24fc705d137b3"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -114,37 +189,64 @@ const auth = getAuth(app);
 
 window.register = async function(){
 
-const email = document.getElementById('email').value;
-const password = document.getElementById('password').value;
+const email =
+document.getElementById('email').value;
+
+const password =
+document.getElementById('password').value;
 
 try{
-await createUserWithEmailAndPassword(auth,email,password);
-document.getElementById('msg').innerHTML = '✅ สมัครสมาชิกสำเร็จ';
+
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+document.getElementById('msg').innerHTML =
+'✅ สมัครสมาชิกสำเร็จ';
+
 }catch(err){
-document.getElementById('msg').innerHTML = '❌ ' + err.message;
+
+document.getElementById('msg').innerHTML =
+'❌ ' + err.message;
+
 }
 
 }
 
 window.login = async function(){
 
-const email = document.getElementById('email').value;
-const password = document.getElementById('password').value;
+const email =
+document.getElementById('email').value;
+
+const password =
+document.getElementById('password').value;
 
 try{
 
-await signInWithEmailAndPassword(auth,email,password);
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
 
-document.getElementById('msg').innerHTML='✅ เข้าสู่ระบบสำเร็จ';
+document.getElementById('msg').innerHTML =
+'✅ เข้าสู่ระบบสำเร็จ';
 
 if(email === "fftar11@gmail.com"){
-window.location.href="ohmmi-admin-2026.html";
+window.location.href =
+"ohmmi-admin-2026.html";
 }else{
-window.location.href="index.html";
+window.location.href =
+"index.html";
 }
 
 }catch(err){
-document.getElementById('msg').innerHTML='❌ '+err.message;
+
+document.getElementById('msg').innerHTML =
+'❌ ' + err.message;
+
 }
 
 }
