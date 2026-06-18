@@ -335,13 +335,11 @@ const data = child.val();
 html += `
 <div class="product-card">
 
-<img
-src="${data.image}"
-style="
-width:100%;
-border-radius:15px;
-margin-bottom:15px;
-">
+${data.image ? `
+<img src="${data.image}">
+` : `
+<img src="https://via.placeholder.com/300x300?text=OHMMISHOPS">
+`}
 
 <div class="product-name">
 ${data.name}
