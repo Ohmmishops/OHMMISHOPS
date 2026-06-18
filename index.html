@@ -18,6 +18,7 @@ background:linear-gradient(
 #b388ff 100%
 );
 }
+
 .container{
 max-width:900px;
 margin:auto;
@@ -36,23 +37,46 @@ width:100%;
 overflow:hidden;
 border-radius:20px;
 box-shadow:0 0 15px rgba(0,0,0,.15);
-margin-bottom:30px;
+margin-bottom:25px;
 }
+
 .slider img{
 width:100%;
 display:block;
 }
 
+.promo-box{
+background:white;
+padding:20px;
+border-radius:20px;
+margin:20px 0;
+text-align:center;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.promo-title{
+color:#6a1b9a;
+font-size:34px;
+font-weight:900;
+margin:0;
+}
+
+.promo-sub{
+font-size:18px;
+font-weight:bold;
+margin-top:12px;
+}
 
 h1{
 text-align:center;
-font-size:48px;
-margin-top:10px;
+font-size:42px;
+margin-top:20px;
+color:#4a148c;
 }
 
 p{
 text-align:center;
-font-size:24px;
+font-size:22px;
 }
 
 .login-btn{
@@ -69,10 +93,28 @@ font-size:24px;
 font-weight:bold;
 }
 
+.game-menu{
+display:flex;
+gap:10px;
+justify-content:center;
+flex-wrap:wrap;
+margin:25px 0;
+}
+
+.game-box{
+background:white;
+padding:12px 20px;
+border-radius:15px;
+font-weight:bold;
+box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
 .products-title{
 font-size:42px;
 font-weight:bold;
 margin-top:50px;
+color:#4a148c;
+text-align:center;
 }
 
 .product-card{
@@ -84,12 +126,12 @@ box-shadow:0 0 10px rgba(0,0,0,.1);
 }
 
 .product-name{
-font-size:32px;
+font-size:30px;
 font-weight:bold;
 }
 
 .product-price{
-font-size:30px;
+font-size:28px;
 font-weight:bold;
 color:#7c4dff;
 margin:15px 0;
@@ -103,7 +145,7 @@ text-align:center;
 padding:15px;
 border-radius:12px;
 text-decoration:none;
-font-size:22px;
+font-size:20px;
 font-weight:bold;
 }
 
@@ -111,7 +153,7 @@ footer{
 text-align:center;
 margin:60px 0 30px;
 font-size:18px;
-color:#777;
+color:#555;
 }
 
 </style>
@@ -121,89 +163,47 @@ color:#777;
 
 <div class="container">
 
-<!-- โลโก้ -->
-
 <img
 class="logo"
 src="file_000000004a4871fa820d19cb5d6f8996.png"
-alt="OHMMISHOPS"
->
-
-<!-- สไลด์ -->
+alt="OHMMISHOPS">
 
 <div class="slider">
 <img id="slide"
 src="file_000000002318720b827b073681dd573e.png">
 </div>
 
-<div style="
-background:white;
-padding:15px;
-border-radius:20px;
-margin:20px 0;
-text-align:center;
-box-shadow:0 5px 15px rgba(0,0,0,.1);
-">
+<div class="promo-box">
 
-<h2 style="
-color:#7c4dff;
-font-size:34px;
-font-weight:900;
-margin:0;
-text-shadow:0 2px 8px rgba(124,77,255,.25);
-">
+<h2 class="promo-title">
 ⚡ ส่งไว ของแท้ ปลอดภัย 24 ชั่วโมง ⚡
 </h2>
 
-<p style="
-font-size:18px;
-font-weight:bold;
-margin-top:12px;
-">
+<div class="promo-sub">
 🎮 Roblox • 🔥 Free Fire • ⚔️ MLBB
-</p>
+</div>
 
 </div>
+
 <h1>ยินดีต้อนรับสู่ OHMMISHOPS</h1>
 
-<p>เลือกซื้อสินค้าได้ด้านล่าง</p>
+<p>ร้านจำหน่ายไอดีเกมและไอเท็มราคาคุ้มค่า</p>
 
 <a href="login.html" class="login-btn">
 เข้าสู่ระบบ
 </a>
 
-<div style="
-display:flex;
-gap:10px;
-justify-content:center;
-flex-wrap:wrap;
-margin:25px 0;
-">
+<div class="game-menu">
 
-<div style="
-background:white;
-padding:12px 20px;
-border-radius:15px;
-font-weight:bold;
-">
+<div class="game-box">
 🎮 Roblox
 </div>
 
-<div style="
-background:white;
-padding:12px 20px;
-border-radius:15px;
-font-weight:bold;
-">
+<div class="game-box">
 🔥 Free Fire
 </div>
 
-<div style="
-background:white;
-padding:12px 20px;
-border-radius:15px;
-font-weight:bold;
-">
+<div class="game-box">
 ⚔️ MLBB
 </div>
 
@@ -293,6 +293,7 @@ target="_blank">
 📩 ติดต่อซื้อสินค้า
 
 </a>
+
 </div>
 `;
 
