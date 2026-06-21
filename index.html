@@ -257,13 +257,6 @@ onValue
 }
 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
-import {
-getAuth,
-onAuthStateChanged
-}
-from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
-
 const firebaseConfig = {
 apiKey: "AIzaSyC1aaMNIa7gfr9y6mHbIZU-OZIsq3yLSAU",
 authDomain: "ohmmishops-68928.firebaseapp.com",
@@ -276,7 +269,7 @@ appId: "1:64123880266:web:0317d55de24fc705d137b3"
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const auth = getAuth(app);
+
 const slides = [
 "file_000000002318720b827b073681dd573e.png",
 "file_00000000b8c0720bbb5251a2ce12afc2.png",
@@ -285,7 +278,7 @@ const slides = [
 
 let current = 0;
 
-setInterval(()=>{
+setInterval(() => {
 
 current++;
 
@@ -293,14 +286,35 @@ if(current >= slides.length){
 current = 0;
 }
 
-document.getElementById("slide").src =
-slides[current];
+const slide = document.getElementById("slide");
+
+if(slide){
+slide.src = slides[current];
+}
 
 },4000);
 
 onValue(ref(db,"products"),(snapshot)=>{
 
 let html = "";
+
+if(!snapshot.exists()){
+
+html = `
+<div style="
+grid-column:1/-1;
+text-align:center;
+font-size:20px;
+padding:30px;
+font-weight:bold;
+">
+ยังไม่มีสินค้า
+</div>
+`;
+
+document.getElementById("products").innerHTML = html;
+return;
+}
 
 snapshot.forEach((child)=>{
 
@@ -309,26 +323,24 @@ const data = child.val();
 html += `
 <div class="product-card">
 
-${data.image ? `
-<img src="${data.image}">
-` : `
-<img src="https://via.placeholder.com/300x300?text=OHMMISHOPS">
-`}
+<img
+src="${data.image || 'https://via.placeholder.com/300'}"
+alt="${data.name}"
+>
 
 <div class="product-name">
-${data.name}
+${data.name || 'ไม่มีชื่อสินค้า'}
 </div>
 
 <div class="product-price">
-฿${data.price}
+${data.price || '0'} บาท
 </div>
 
-<a class="buy-btn"
+<a
+class="buy-btn"
 href="https://www.facebook.com/share/1GKp1PqUuL/"
 target="_blank">
-
 🛒 ซื้อ
-
 </a>
 
 </div>
@@ -338,9 +350,24 @@ target="_blank">
 
 document.getElementById("products").innerHTML = html;
 
+},(error)=>{
+
+console.error(error);
+
+document.getElementById("products").innerHTML = `
+<div style="
+grid-column:1/-1;
+text-align:center;
+padding:30px;
+font-size:18px;
+color:red;
+">
+โหลดสินค้าไม่สำเร็จ
+</div>
+`;
+
 });
 
 </script>
-
 </body>
   </html>
