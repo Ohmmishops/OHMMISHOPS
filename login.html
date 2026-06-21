@@ -214,11 +214,13 @@ email,
 password
 );
 
+const user = userCredential.user;
+
 await set(
-ref(db,"users/" + userCredential.user.uid),
+ref(db,"users/"+user.uid),
 {
-email: email,
-balance: 0
+email:user.email,
+balance:0
 }
 );
 
