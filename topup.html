@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>เติมเครดิต</title><style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f5f0ff;
+padding:20px;
+}
+
+.box{
+max-width:500px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+h2{
+text-align:center;
+color:#7c4dff;
+}
+
+.credit{
+font-size:32px;
+font-weight:bold;
+text-align:center;
+color:#7c4dff;
+margin:20px 0;
+}
+
+.topup-btn{
+display:block;
+width:100%;
+padding:15px;
+background:#7c4dff;
+color:white;
+text-align:center;
+border-radius:10px;
+text-decoration:none;
+font-weight:bold;
+margin-top:15px;
+}
+
+</style></head><body><div class="box"><h2>💰 เครดิตของฉัน</h2><div id="credit" class="credit">
+0 บาท
+</div><a
+class="topup-btn"
+href="https://www.facebook.com/share/1GKp1PqUuL/"
+target="_blank">
+
+แจ้งเติมเครดิต
+
+</a></div><script type="module">
+
+import { initializeApp }
+from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+
+import {
+getDatabase,
+ref,
+onValue
+}
+from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+
+import {
+getAuth,
+onAuthStateChanged
+}
+from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+
+const firebaseConfig = {
+apiKey: "YOUR_KEY",
+authDomain: "YOUR_DOMAIN",
+databaseURL: "YOUR_DB",
+projectId: "YOUR_PROJECT",
+storageBucket: "YOUR_BUCKET",
+messagingSenderId: "YOUR_ID",
+appId: "YOUR_APPID"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+
+const auth = getAuth(app);
+
+onAuthStateChanged(auth,(user)=>{
+
+if(!user){
+
+location.href="login.html";
+
+return;
+
+}
+
+onValue(
+ref(db,"users/"+user.uid),
+(snapshot)=>{
+
+const data = snapshot.val() || {};
+
+document.getElementById("credit").innerHTML =
+(data.balance || 0) + " บาท";
+
+});
+
+});
+
+</script></body>
+</html>
