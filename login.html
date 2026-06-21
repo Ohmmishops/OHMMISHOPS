@@ -163,7 +163,12 @@ placeholder="รหัสผ่าน (อย่างน้อย 6 ตัว)"
 </div>
 
 <script type="module">
-
+import {
+getDatabase,
+ref,
+set
+}
+from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 import { initializeApp }
 from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 
