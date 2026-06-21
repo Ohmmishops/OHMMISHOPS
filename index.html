@@ -332,7 +332,43 @@ slide.src = slides[current];
 }
 
 },4000);
+onAuthStateChanged(auth,(user)=>{
 
+if(user){
+
+let adminBadge = "";
+
+if(user.email === "fftar11@gmail.com"){
+adminBadge = `
+<div class="admin-badge">
+🛠️ ADMIN
+</div>
+`;
+}
+
+document.getElementById("user-area").innerHTML = `
+
+<div class="profile-box">
+
+👤 ${user.email}
+
+${adminBadge}
+
+<button
+class="logout-btn"
+onclick="logoutUser()">
+
+🚪 ออกจากระบบ
+
+</button>
+
+</div>
+
+`;
+
+}
+
+});
 onValue(ref(db,"products"),(snapshot)=>{
 
 let html = "";
