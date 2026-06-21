@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>OHMMISHOPS Wheel</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:linear-gradient(
+180deg,
+#d9c2ff 0%,
+#c7a4ff 50%,
+#b388ff 100%
+);
+text-align:center;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+padding:20px;
+}
+
+.wheel-box{
+background:white;
+padding:20px;
+border-radius:20px;
+box-shadow:0 0 15px rgba(0,0,0,.1);
+}
+
+.balance{
+font-size:28px;
+font-weight:bold;
+color:#7c4dff;
+margin:15px 0;
+}
+
+.spin-btn{
+background:#7c4dff;
+color:white;
+border:none;
+padding:15px 30px;
+font-size:20px;
+border-radius:12px;
+cursor:pointer;
+}
+
+.back-btn{
+display:inline-block;
+margin-top:15px;
+padding:10px 20px;
+background:#555;
+color:white;
+text-decoration:none;
+border-radius:10px;
+}
+
+.result{
+margin-top:20px;
+font-size:24px;
+font-weight:bold;
+}
+
+.history{
+margin-top:20px;
+background:#f5f0ff;
+padding:15px;
+border-radius:15px;
+text-align:left;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="wheel-box">
+
+<h1>🎰 วงล้อสุ่ม OHMMISHOPS</h1>
+
+<div id="balance" class="balance">
+กำลังโหลด...
+</div>
+
+<p>ค่าหมุน 10 เครดิต</p>
+
+<button
+class="spin-btn"
+onclick="spinWheel()">
+🎰 หมุนเลย
+</button>
+
+<div id="result" class="result"></div>
+
+<div id="history" class="history">
+ยังไม่มีประวัติ
+</div>
+
+<a href="index.html" class="back-btn">
+← กลับหน้าแรก
+</a>
+
+</div>
+
+</div>
