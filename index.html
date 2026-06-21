@@ -336,14 +336,22 @@ onAuthStateChanged(auth,(user)=>{
 
 if(user){
 
+onValue(ref(db,"users/"+user.uid),(snapshot)=>{
+
+const data = snapshot.val() || {};
+
+const balance = data.balance || 0;
+
 let adminBadge = "";
 
 if(user.email === "fftar11@gmail.com"){
+
 adminBadge = `
 <div class="admin-badge">
 🛠️ ADMIN
 </div>
 `;
+
 }
 
 document.getElementById("user-area").innerHTML = `
@@ -351,6 +359,22 @@ document.getElementById("user-area").innerHTML = `
 <div class="profile-box">
 
 👤 ${user.email}
+
+<br><br>
+
+💰 เครดิตคงเหลือ
+
+<br>
+
+<span style="
+font-size:28px;
+color:#7c4dff;
+font-weight:bold;
+">
+
+${balance} บาท
+
+</span>
 
 ${adminBadge}
 
@@ -363,6 +387,18 @@ onclick="logoutUser()">
 </button>
 
 </div>
+
+`;
+
+});
+
+}else{
+
+document.getElementById("user-area").innerHTML = `
+
+<a href="login.html" class="login-btn">
+เข้าสู่ระบบ
+</a>
 
 `;
 
