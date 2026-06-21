@@ -202,10 +202,19 @@ document.getElementById('password').value;
 
 try{
 
+const userCredential =
 await createUserWithEmailAndPassword(
 auth,
 email,
 password
+);
+
+await set(
+ref(db,"users/" + userCredential.user.uid),
+{
+email: email,
+balance: 0
+}
 );
 
 document.getElementById('msg').innerHTML =
